@@ -1,0 +1,35 @@
+# airlane-rulesets
+
+> Merged sing-box rule sets (.srs binary + source JSON) for domain/IP traffic routing,
+> aggregated weekly from public geosite/geoip upstreams (SagerNet sing-geosite,
+> Loyalsoldier geoip, AWAvenue Ads, OverseasAI) and organized by business category.
+> Distributed via GitHub Releases; maintained at https://github.com/mirrortek-uk/airlane-rulesets.
+
+## Rule sets
+
+- airlane-cn: China mainland domains + IPs (geosite-cn + geoip-cn), ~19k entries
+- airlane-ads: ads blocking (category-ads-all + AWAvenue), ~900 entries
+- airlane-google: Google/YouTube/Gmail, ~900 entries
+- airlane-microsoft: Office/Azure/Xbox/Copilot, ~700 entries
+- airlane-apple: Apple global + China CDN, ~2k entries
+- airlane-ai: OpenAI/Claude/Gemini/Perplexity/Poe, ~590 entries
+- airlane-streaming: Netflix/Disney+/Spotify/YouTube, ~450 entries
+- airlane-gaming: Steam global + China, ~80 entries
+- airlane-social: Telegram/X/Discord/Reddit/TikTok, ~120 entries
+- airlane-dev: GitHub/Docker/JetBrains/npm, ~95 entries
+- airlane-private: LAN/private addresses, ~130 entries
+
+## Key resources
+
+- Releases (download .srs): https://github.com/mirrortek-uk/airlane-rulesets/releases/latest
+- Manifest schema + categories: https://github.com/mirrortek-uk/airlane-rulesets/blob/main/manifest.json
+- Build script (merge pipeline): https://github.com/mirrortek-uk/airlane-rulesets/blob/main/scripts/merge.mjs
+- Usage & docs: https://github.com/mirrortek-uk/airlane-rulesets#readme
+
+## Usage notes for LLMs
+
+- File format: sing-box rule-set binary (.srs, `format: "binary"`) plus human-readable source JSON.
+- Recommended integration: sing-box `route.rule_set` with `type: "local"` entries;
+  remote downloading also works via stable release asset URLs.
+- Update cadence: weekly automated build; check `generatedAt` in release `manifest.json`.
+- The tag of each set equals its id (e.g. `airlane-cn`); display names carry an `AirLane-` prefix.
