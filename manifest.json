@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "sets": [
+    {
+      "id": "airlane-cn",
+      "displayName": "AirLane-中国大陆",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/srs/cn.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-ads",
+      "displayName": "AirLane-广告拦截",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-ads-all.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://cdn.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
+          "type": "clash-yaml"
+        }
+      ]
+    },
+    {
+      "id": "airlane-google",
+      "displayName": "AirLane-Google 服务",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-google.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-microsoft",
+      "displayName": "AirLane-微软服务",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-microsoft.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-apple",
+      "displayName": "AirLane-Apple 服务",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple@cn.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-ai",
+      "displayName": "AirLane-AI 服务",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/viewer12/OverseasAI.list/main/rule/Clash/OverseasAI/OverseasAI.list",
+          "type": "clash-list"
+        }
+      ]
+    },
+    {
+      "id": "airlane-streaming",
+      "displayName": "AirLane-流媒体",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-netflix.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-disney.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-spotify.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-youtube.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-gaming",
+      "displayName": "AirLane-游戏平台",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-steam.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-steam@cn.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-social",
+      "displayName": "AirLane-社交媒体",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-telegram.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-twitter.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-discord.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-reddit.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-tiktok.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-dev",
+      "displayName": "AirLane-开发者工具",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-github.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-docker.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-jetbrains.srs",
+          "type": "srs"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-npmjs.srs",
+          "type": "srs"
+        }
+      ]
+    },
+    {
+      "id": "airlane-private",
+      "displayName": "AirLane-局域网",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-private.srs",
+          "type": "srs"
+        }
+      ]
+    }
+  ]
+}

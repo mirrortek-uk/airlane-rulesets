@@ -1,0 +1,50 @@
+name: Update rule sets
+
+on:
+  schedule:
+    - cron: "30 20 * * 1" # 每周一 UTC 20:30（北京时间周二 04:30）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install sing-box (version pinned to AirLane client bundle)
+        run: |
+          V=$(cat SING_BOX_VERSION)
+          echo "sing-box $V"
+          curl -fsSL -o sb.tar.gz \
+            "https://github.com/SagerNet/sing-box/releases/download/v${V}/sing-box-${V}-linux-amd64.tar.gz"
+          tar xzf sb.tar.gz
+          mv "sing-box-${V}-linux-amd64/sing-box" ./sing-box
+          chmod +x ./sing-box
+          ./sing-box version
+
+      - name: Merge rule sets
+        run: node scripts/merge.mjs --singbox ./sing-box --out dist
+
+      - name: Compute release tag
+        id: tag
+        run: echo "tag=v$(date +%Y%m%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "AirLane rule sets ${{ steps.tag.outputs.tag }}"
+          files: |
+            dist/*.srs
+            dist/*.json
+          generate_release_notes: false
+          body: |
+            Auto-merged AirLane rule sets. See `manifest.json` in this release
+            for per-set entry counts and SHA256 checksums.
