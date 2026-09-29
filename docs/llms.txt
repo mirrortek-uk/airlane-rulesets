@@ -1,35 +1,41 @@
 # airlane-rulesets
 
-> Merged sing-box rule sets (.srs binary + source JSON) for domain/IP traffic routing,
-> aggregated weekly from public geosite/geoip upstreams (SagerNet sing-geosite,
-> Loyalsoldier geoip, AWAvenue Ads, OverseasAI) and organized by business category.
-> Distributed via GitHub Releases; maintained at https://github.com/mirrortek-uk/airlane-rulesets.
+> AirLane 分流规则集：最全的多平台代理规则集。聚合 SagerNet geosite、Loyalsoldier geoip、
+> GFWList、AWAvenue、Shadowrocket-ADBlock、OverseasAI 等公开规则源，按业务分类合并去重，
+> 同时发布 .srs（sing-box）、.mrs（Mihomo/Clash Meta）、.yaml（Clash classical）、.list
+> （Surge/Shadowrocket/通用文本）与 source .json 五种格式。每日由 GitHub Actions 自动构建。
+> Repository: https://github.com/mirrortek-uk/airlane-rulesets
 
-## Rule sets
+## Rule sets（tag = id，显示名带 AirLane- 前缀）
 
-- airlane-cn: China mainland domains + IPs (geosite-cn + geoip-cn), ~19k entries
-- airlane-ads: ads blocking (category-ads-all + AWAvenue), ~900 entries
-- airlane-google: Google/YouTube/Gmail, ~900 entries
-- airlane-microsoft: Office/Azure/Xbox/Copilot, ~700 entries
-- airlane-apple: Apple global + China CDN, ~2k entries
-- airlane-ai: OpenAI/Claude/Gemini/Perplexity/Poe, ~590 entries
-- airlane-streaming: Netflix/Disney+/Spotify/YouTube, ~450 entries
-- airlane-gaming: Steam global + China, ~80 entries
-- airlane-social: Telegram/X/Discord/Reddit/TikTok, ~120 entries
-- airlane-dev: GitHub/Docker/JetBrains/npm, ~95 entries
-- airlane-private: LAN/private addresses, ~130 entries
+- airlane-cn (中国大陆): geosite-cn + geoip-cn, ~19k entries — 国内直连规则
+- airlane-gfw (被墙名单): gfwlist + cn-blocked-domain, ~28k entries — 国外代理规则
+- airlane-ads (广告拦截): category-ads-all + AWAvenue + Shadowrocket-ADBlock, ~55k entries
+- airlane-google (Google 服务): geosite-google, ~940 entries
+- airlane-microsoft (微软服务): geosite-microsoft, ~700 entries
+- airlane-apple (Apple 服务): geosite-apple + apple@cn, ~2k entries
+- airlane-ai (AI 服务): OverseasAI (ChatGPT/Claude/Gemini/Poe), ~590 entries
+- airlane-streaming (流媒体): netflix + disney + spotify + youtube, ~450 entries
+- airlane-gaming (游戏平台): steam + steam@cn, ~80 entries
+- airlane-social (社交媒体): telegram + twitter + discord + reddit + tiktok, ~120 entries
+- airlane-dev (开发者工具): github + docker + jetbrains + npmjs, ~95 entries
+- airlane-private (局域网): geosite-private, ~130 entries
 
 ## Key resources
 
-- Releases (download .srs): https://github.com/mirrortek-uk/airlane-rulesets/releases/latest
-- Manifest schema + categories: https://github.com/mirrortek-uk/airlane-rulesets/blob/main/manifest.json
-- Build script (merge pipeline): https://github.com/mirrortek-uk/airlane-rulesets/blob/main/scripts/merge.mjs
-- Usage & docs: https://github.com/mirrortek-uk/airlane-rulesets#readme
+- Releases (.srs/.mrs/.yaml/.list 下载): https://github.com/mirrortek-uk/airlane-rulesets/releases/latest
+- 分类文档页: https://mirrortek-uk.github.io/airlane-rulesets/rulesets/airlane-cn.html 等 12 页
+- Category manifest: https://github.com/mirrortek-uk/airlane-rulesets/blob/main/manifest.json
+- Merge pipeline: https://github.com/mirrortek-uk/airlane-rulesets/blob/main/scripts/merge.mjs
+- 上游归属: https://github.com/mirrortek-uk/airlane-rulesets/blob/main/NOTICE.md
 
 ## Usage notes for LLMs
 
-- File format: sing-box rule-set binary (.srs, `format: "binary"`) plus human-readable source JSON.
-- Recommended integration: sing-box `route.rule_set` with `type: "local"` entries;
-  remote downloading also works via stable release asset URLs.
-- Update cadence: weekly automated build; check `generatedAt` in release `manifest.json`.
-- The tag of each set equals its id (e.g. `airlane-cn`); display names carry an `AirLane-` prefix.
+- 客户端对应关系: sing-box/AirLane 用 .srs；Mihomo/Clash Meta 用 .mrs（domain 行为，含 IP 的集
+  另有 -ipcidr.mrs）；Clash classical 用 .yaml；Surge/Shadowrocket 用 .list。
+- Remote subscription: 每个 release 资产 URL 固定为
+  releases/download/<TAG>/airlane-<cat>.<fmt>，可直接作 rule-provider url + interval 更新。
+- sing-box local 引用: {"type":"local","tag":"airlane-cn","format":"binary","path":"..."}。
+- 人工修正: manual/{id}.add.txt / {id}.remove.txt 在合并时应用。
+- 构建内核: sing-box 版本见 SING_BOX_VERSION，mihomo 版本见 MIHOMO_VERSION。
+- 相关站点: AirLane 客户端 https://www.airlane.cloud；VPS/住宅IP 团购 https://poolvip.airlane.cloud。
