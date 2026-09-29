@@ -1,93 +1,110 @@
-# airlane-rulesets — AirLane merged sing-box rule sets (.srs)
+# airlane-rulesets — 最全的多平台分流规则集 | Clash / Mihomo / sing-box 规则集
 
-**airlane-rulesets** is a collection of ready-to-use **sing-box rule sets** in binary `.srs` format,
-aggregated and merged weekly from the most trusted public rule sources
-(SagerNet sing-geosite, Loyalsoldier geoip, AWAvenue Ads, OverseasAI).
-Each rule set targets one business category — China mainland, ads blocking, Google, Apple,
-Microsoft, AI services, streaming, gaming, social media, developer tools, LAN/private —
-so proxy clients can pick a single `rule_set` per category instead of managing dozens of upstream lists.
+> **最全的多平台机场分流规则集，由 AirLane 聚合精选而成，拥有强大的广告过滤和国内外流量识别能力。**
 
-**AirLane 规则集**是一套开箱即用的 **sing-box 分流规则集**（`.srs` 二进制 + source JSON），
-把 SagerNet geosite、Loyalsoldier geoip、AWAvenue 广告规则、OverseasAI 等多个社区上游
-按业务分类合并去重，每周由 GitHub Actions 自动重建并发布到 Releases。
-客户端只需按类别引用一个 `rule_set`，即可获得"中国大陆域名/IP、广告拦截、流媒体、AI 服务"
-等完整分流能力。
+**airlane-rulesets** 把社区最可靠的公开规则源（SagerNet GeoSite、Loyalsoldier GeoIP、GFWList、AWAvenue 广告规则、Shadowrocket-ADBlock、OverseasAI）按业务分类合并去重，一次产出 **五种格式**，覆盖几乎所有主流代理客户端：
 
-- 📦 Latest release / 最新发布: [Releases](https://github.com/mirrortek-uk/airlane-rulesets/releases/latest)
-- 📄 Per-set entry counts & SHA256 / 各集条目数与校验值: `manifest.json` in each release
-- 🔄 Update cadence / 更新频率: weekly（每周一自动构建）
-- 🧩 Compatible with / 兼容: sing-box ≥ 1.14（`rule_set` type local binary `format: "binary"`）
+| 格式 | 客户端 | 说明 |
+|---|---|---|
+| `.srs` | sing-box / AirLane | 二进制规则集，加载最快 |
+| `.mrs` | Mihomo / Clash Meta | domain 行为二进制（含 IP 的集另有 `-ipcidr.mrs`） |
+| `.yaml` | Clash / Clash Meta | classical rule-provider |
+| `.list` | Surge / Shadowrocket / Quantumult | 纯文本规则行 |
+| `.json` | sing-box source | 可读源格式 |
 
-## Rule sets / 规则集清单
+- 📦 **下载/订阅**：[Releases](https://github.com/mirrortek-uk/airlane-rulesets/releases/latest)（资产 URL 固定，可当 `rule-providers` 订阅源在线更新）
+- 📄 **条目与校验**：每个 release 附 `manifest.json`（各集条目数 + SHA256）
+- 🔄 **更新频率**：每日自动构建（北京时间 9:00，上游日更完成后）
+- 🌐 **文档站**：<https://mirrortek-uk.github.io/airlane-rulesets/>
 
-| ID | 显示名 | Category | Upstream sources |
+---
+
+**English**: The most comprehensive multi-platform proxy rule sets curated by AirLane —
+merged weekly/daily from public geosite/geoip sources into category-based rule sets
+for sing-box (.srs), Mihomo/Clash Meta (.mrs), Clash (.yaml), and Surge/Shadowrocket (.list).
+
+## 规则集目录
+
+| Tag | 分类 | 规模 | 上游 |
 |---|---|---|---|
-| `airlane-cn` | AirLane-中国大陆 | China mainland domains + IPs | geosite-cn + geoip-cn |
-| `airlane-ads` | AirLane-广告拦截 | Ads blocking | category-ads-all + AWAvenue-Ads |
-| `airlane-google` | AirLane-Google 服务 | Google / YouTube / Gmail | geosite-google |
-| `airlane-microsoft` | AirLane-微软服务 | Office 365 / Azure / Xbox / Copilot | geosite-microsoft |
-| `airlane-apple` | AirLane-Apple 服务 | Apple global + China CDN | geosite-apple + apple@cn |
-| `airlane-ai` | AirLane-AI 服务 | OpenAI / Claude / Gemini / Poe … | OverseasAI |
-| `airlane-streaming` | AirLane-流媒体 | Netflix / Disney+ / Spotify / YouTube | geosite-netflix + disney + spotify + youtube |
-| `airlane-gaming` | AirLane-游戏平台 | Steam global + China | geosite-steam + steam@cn |
-| `airlane-social` | AirLane-社交媒体 | Telegram / X / Discord / Reddit / TikTok | geosite-telegram + twitter + discord + reddit + tiktok |
-| `airlane-dev` | AirLane-开发者工具 | GitHub / Docker / JetBrains / npm | geosite-github + docker + jetbrains + npmjs |
-| `airlane-private` | AirLane-局域网 | LAN / private addresses | geosite-private |
+| `airlane-cn` | 国内直连规则 | ~19k | geosite-cn + geoip-cn |
+| `airlane-gfw` | 被墙名单/国外代理 | ~28k | GFWList + cn-blocked-domain |
+| `airlane-ads` | 广告拦截规则 | ~55k | category-ads-all + AWAvenue + SR-ADBlock |
+| `airlane-google` | Google 服务 | ~940 | geosite-google |
+| `airlane-microsoft` | 微软服务 | ~700 | geosite-microsoft |
+| `airlane-apple` | Apple 服务 | ~2k | geosite-apple + apple@cn |
+| `airlane-ai` | AI 工具分流 | ~590 | OverseasAI (ChatGPT/Claude/Gemini/Poe) |
+| `airlane-streaming` | 流媒体 | ~450 | netflix + disney + spotify + youtube |
+| `airlane-gaming` | 游戏平台 | ~80 | steam + steam@cn |
+| `airlane-social` | 社交媒体 | ~120 | telegram + twitter + discord + reddit + tiktok |
+| `airlane-dev` | 开发者工具 | ~95 | github + docker + jetbrains + npmjs |
+| `airlane-private` | 局域网 | ~130 | geosite-private |
 
-## Usage / 使用方法
+## 快速接入
 
-Download `.srs` files from the latest release and reference them as local binary rule sets:
+### sing-box / AirLane
 
 ```jsonc
 {
   "route": {
     "rules": [
       { "rule_set": ["airlane-ads"], "action": "reject" },
-      { "rule_set": ["airlane-cn"], "outbound": "direct" },
-      { "rule_set": ["airlane-google"], "outbound": "proxy" }
+      { "rule_set": ["airlane-gfw"], "outbound": "proxy" },
+      { "rule_set": ["airlane-cn"], "outbound": "direct" }
     ],
-    "rule_set": [
-      {
-        "type": "local",
-        "tag": "airlane-cn",
-        "format": "binary",
-        "path": "rulesets/airlane-cn.srs"
-      }
-    ]
+    "rule_set": [{
+      "type": "local", "tag": "airlane-cn",
+      "format": "binary", "path": "rulesets/airlane-cn.srs"
+    }]
   }
 }
 ```
 
-Or use them as remote rule sets with `download_detour` — every release asset has a stable URL:
+### Mihomo / Clash Meta（订阅在线更新）
 
-```text
-https://github.com/mirrortek-uk/airlane-rulesets/releases/download/<TAG>/airlane-cn.srs
+```yaml
+rule-providers:
+  airlane-cn:
+    type: http
+    behavior: domain
+    format: mrs
+    url: "https://github.com/mirrortek-uk/airlane-rulesets/releases/latest/download/airlane-cn.mrs"
+    interval: 86400
+rules:
+  - RULE-SET,airlane-cn,DIRECT
 ```
 
-中国大陆用户可将下载域名替换为 jsDelivr 镜像或自建反代；`manifest.json` 提供每个文件的
-SHA256 用于完整性校验。
+### Clash / Shadowrocket / Surge
 
-## Build & maintenance / 构建与维护
+用 `.yaml`（classical provider）或 `.list`（纯文本）格式，URL 同上换后缀即可。
+
+## 怎么选？（分流方案速查）
+
+| 需求 | 规则集组合 |
+|---|---|
+| 国内外分流 | `airlane-gfw`→代理 + `airlane-cn`/`airlane-private`→直连，兜底代理 |
+| 直连去广告 | 上表 + `airlane-ads`→拦截 |
+| 流媒体/AI 独立出口 | `airlane-streaming`/`airlane-ai`→对应节点组 |
+| 回国加速 | `airlane-cn`→国内节点 |
+
+## 本地构建
 
 ```bash
-node scripts/merge.mjs --singbox /path/to/sing-box --out dist   # build all
-node scripts/merge.mjs --singbox /path/to/sing-box --only airlane-ai  # single set
+node scripts/merge.mjs --singbox /path/to/sing-box --mihomo /path/to/mihomo --out dist
+node scripts/merge.mjs --only airlane-ai   # 只构建单个分类（--mihomo 可省略跳过 mrs）
 ```
 
-- `manifest.json`（仓库根目录）是唯一手工维护文件：分类 ID → 上游源列表
-  （`type` 支持 `srs` / `source-json` / `clash-yaml` / `clash-list`）。
-- `SING_BOX_VERSION` 固定 decompile/compile 用的 sing-box 版本，与 AirLane 客户端捆绑内核保持一致。
-- CI 每周一构建并把 `dist/` 发到 GitHub Releases（tag 为日期，如 `v20260927`）。
+## 纠错与贡献
 
-Upstream attributions / 上游许可见 [NOTICE.md](NOTICE.md)。
+发现某个域名分错流？上游错了我们没法改源头，但可以走**人工修正清单**：
+往 `manual/{分类id}.add.txt` / `{分类id}.remove.txt` 提 PR（格式 `DOMAIN-SUFFIX,example.com`
+每行一条），下次构建自动并入/剔除。也欢迎直接改 `manifest.json` 增加上游源。
 
-## FAQ
+Fork 本仓 → 开启 Actions → 你就拥有自己的每日构建规则集。
 
-**What is airlane-rulesets?** A set of merged sing-box `.srs` rule sets for domain/IP-based
-traffic routing, built weekly from public geosite/geoip sources and organized by business category.
+## 相关项目
 
-**airlane-rulesets 是什么？** 面向 sing-box 的按业务分类聚合规则集（域名/IP 分流），
-每周自动从公开 geosite/geoip 上游合并构建。
+- [AirLane](https://www.airlane.cloud) — 多平台规则代理工具，内置本规则集一键启用
+- [PoolVIP](https://poolvip.airlane.cloud) — VPS 与住宅 IP 团购
 
-**How often is it updated?** Weekly, via GitHub Actions; each release ships `.srs` binaries,
-human-readable source `.json`, and a `manifest.json` with entry counts and SHA256 checksums.
+上游归属见 [NOTICE.md](NOTICE.md)，许可 [MIT](LICENSE)。

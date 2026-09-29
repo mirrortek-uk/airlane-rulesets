@@ -26,6 +26,24 @@
         {
           "url": "https://cdn.jsdelivr.net/gh/TG-Twilight/AWAvenue-Ads-Rule@main/Filters/AWAvenue-Ads-Rule-Clash.yaml",
           "type": "clash-yaml"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/johnshall/Shadowrocket-ADBlock-Rules-Forever/release/sr_ad_only.conf",
+          "type": "shadowrocket-conf"
+        }
+      ]
+    },
+    {
+      "id": "airlane-gfw",
+      "displayName": "AirLane-被墙名单",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt",
+          "type": "gfwlist"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/Loyalsoldier/cn-blocked-domain/release/domains.txt",
+          "type": "clash-list"
         }
       ]
     },

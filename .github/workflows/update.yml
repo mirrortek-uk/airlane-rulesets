@@ -2,7 +2,7 @@ name: Update rule sets
 
 on:
   schedule:
-    - cron: "30 20 * * 1" # 每周一 UTC 20:30（北京时间周二 04:30）
+    - cron: "0 1 * * *" # 每日 UTC 01:00（北京时间 09:00，上游日更完成后）
   workflow_dispatch:
 
 permissions:
@@ -29,8 +29,17 @@ jobs:
           chmod +x ./sing-box
           ./sing-box version
 
+      - name: Install mihomo (for .mrs output)
+        run: |
+          V=$(cat MIHOMO_VERSION)
+          echo "mihomo $V"
+          curl -fsSL -o mihomo.gz \
+            "https://github.com/MetaCubeX/mihomo/releases/download/v${V}/mihomo-linux-amd64-v${V}.gz"
+          gunzip -f mihomo.gz && mv mihomo ./mihomo && chmod +x ./mihomo
+          ./mihomo -v
+
       - name: Merge rule sets
-        run: node scripts/merge.mjs --singbox ./sing-box --out dist
+        run: node scripts/merge.mjs --singbox ./sing-box --mihomo ./mihomo --out dist
 
       - name: Compute release tag
         id: tag
@@ -43,8 +52,11 @@ jobs:
           name: "AirLane rule sets ${{ steps.tag.outputs.tag }}"
           files: |
             dist/*.srs
+            dist/*.mrs
+            dist/*.yaml
+            dist/*.list
             dist/*.json
           generate_release_notes: false
           body: |
-            Auto-merged AirLane rule sets. See `manifest.json` in this release
-            for per-set entry counts and SHA256 checksums.
+            Auto-merged AirLane rule sets (srs / mrs / yaml / list formats).
+            See `manifest.json` in this release for per-set entry counts and SHA256 checksums.
