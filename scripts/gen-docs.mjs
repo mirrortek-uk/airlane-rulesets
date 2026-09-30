@@ -128,7 +128,7 @@ function clientSections({ linkPrefix = REL, qr = true, heading = '###' } = {}) {
       const extra = c.fmt === 'mrs' && IPCIDR_MRS.has(s.id)
         ? `<br>[+ ipcidr](${linkPrefix}/${s.id}-ipcidr.mrs)`
         : '';
-      const qrCell = qr ? `<img src="${QR(url)}" width="72" alt="QR">` : '`' + url + '`';
+      const qrCell = qr ? `<a href="${QR(url, 400)}" target="_blank"><img src="${QR(url)}" width="72" alt="QR"></a>` : '`' + url + '`';
       return `| ${META[s.id]?.label ?? s.id} | [${s.id}.${c.fmt}](${url})${extra} | ${qrCell} |`;
     });
     parts.push(`${heading} ${c.title}\n\n${c.note}\n\n| 分类 | 订阅链接 | 扫码 |\n|---|---|---|\n${rows.join('\n')}`);
@@ -166,10 +166,10 @@ ${meta.desc}
 
 | 格式 | 客户端 | 链接 | 扫码 |
 |---|---|---|---|
-| .srs | sing-box / AirLane | [${set.id}.srs](${REL}/${set.id}.srs) | <img src="${QR(`${REL}/${set.id}.srs`)}" width="72"> |
-| .mrs | Mihomo / Clash Meta | [${set.id}.mrs](${REL}/${set.id}.mrs) | <img src="${QR(`${REL}/${set.id}.mrs`)}" width="72"> |
-| .yaml | Clash 系 rule-provider | [${set.id}.yaml](${REL}/${set.id}.yaml) | <img src="${QR(`${REL}/${set.id}.yaml`)}" width="72"> |
-| .list | Shadowrocket / Surge / 通用 | [${set.id}.list](${REL}/${set.id}.list) | <img src="${QR(`${REL}/${set.id}.list`)}" width="72"> |
+| .srs | sing-box / AirLane | [${set.id}.srs](${REL}/${set.id}.srs) | <a href="${QR(`${REL}/${set.id}.srs`, 400)}" target="_blank"><img src="${QR(`${REL}/${set.id}.srs`)}" width="72"></a> |
+| .mrs | Mihomo / Clash Meta | [${set.id}.mrs](${REL}/${set.id}.mrs) | <a href="${QR(`${REL}/${set.id}.mrs`, 400)}" target="_blank"><img src="${QR(`${REL}/${set.id}.mrs`)}" width="72"></a> |
+| .yaml | Clash 系 rule-provider | [${set.id}.yaml](${REL}/${set.id}.yaml) | <a href="${QR(`${REL}/${set.id}.yaml`, 400)}" target="_blank"><img src="${QR(`${REL}/${set.id}.yaml`)}" width="72"></a> |
+| .list | Shadowrocket / Surge / 通用 | [${set.id}.list](${REL}/${set.id}.list) | <a href="${QR(`${REL}/${set.id}.list`, 400)}" target="_blank"><img src="${QR(`${REL}/${set.id}.list`)}" width="72"></a> |
 
 > 中国大陆可用 jsDelivr/gh-proxy 镜像或 [AirLane](https://www.airlane.cloud) 内置反代下载。
 

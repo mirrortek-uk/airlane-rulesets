@@ -49,7 +49,7 @@ const NAMES = {
   'airlane-apple': 'Apple 服务', 'airlane-dev': '开发者工具',
 };
 const FMT = { srs: 'srs', mrs: 'mrs', yaml: 'yaml', 'list-sr': 'list', 'list-surge': 'list' };
-const QR = (u) => 'https://api.qrserver.com/v1/create-qr-code/?size=96x96&data=' + encodeURIComponent(u);
+const QR = (u, size = 96) => `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=` + encodeURIComponent(u);
 
 function recommend() {
   const client = document.querySelector('input[name=client]:checked').value;
@@ -81,7 +81,7 @@ function recommend() {
     const url = `${REL}/${s.id}.${fmt}`;
     return `<tr><td>${NAMES[s.id]}</td><td>${s.action}</td>` +
       `<td><a href="${url}">${s.id}.${fmt}</a></td>` +
-      `<td><img src="${QR(url)}" width="72"></td></tr>`;
+      `<td><a href="${QR(url, 400)}" target="_blank"><img src="${QR(url)}" width="72"></a></td></tr>`;
   }).join('');
   const extra = (fmt === 'mrs' && sets.some(s => ['airlane-cn','airlane-ads','airlane-gfw','airlane-ai'].includes(s.id)))
     ? '<p><i>注意：含 IP 规则的集还需订阅同名 <code>-ipcidr.mrs</code> 文件。</i></p>' : '';
