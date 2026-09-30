@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mirrortek-uk.github.io/airlane-rulesets/sitemap.xml
