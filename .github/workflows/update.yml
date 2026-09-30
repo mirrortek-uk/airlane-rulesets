@@ -35,7 +35,7 @@ jobs:
           echo "mihomo $V"
           curl -fsSL -o mihomo.gz \
             "https://github.com/MetaCubeX/mihomo/releases/download/v${V}/mihomo-linux-amd64-v${V}.gz"
-          gunzip -f mihomo.gz && mv mihomo ./mihomo && chmod +x ./mihomo
+          gunzip -f mihomo.gz && chmod +x mihomo
           ./mihomo -v
 
       - name: Merge rule sets
